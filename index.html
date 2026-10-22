@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carta de Serviços ao Usuário do Estado de Goiás — Estudo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;0,8..60,900;1,8..60,500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14282A; --ink-2:#1D3336; --ink-3:#284245;
+    --paper:#EFE9DC; --paper-soft:#F8F5EC; --paper-dark:#E2DAC5;
+    --seal:#B3862F; --seal-light:#D6AE5C;
+    --trust:#2F6B63; --trust-light:#5C9089;
+    --alert:#9B4A3D; --ink-soft:#4B5450;
+    --line-on-paper:rgba(20,40,42,0.14); --line-on-ink:rgba(239,233,220,0.16);
+    --side:304px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;scroll-padding-top:20px;}
+  body{margin:0;font-family:'IBM Plex Sans',sans-serif;background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.5;}
+  h1,h2,h3{font-family:'Source Serif 4',serif;margin:0;font-weight:700;letter-spacing:-0.01em;}
+  p{margin:0;}
+  button{font-family:inherit;}
+  :focus-visible{outline:2px solid var(--seal-light);outline-offset:2px;}
+
+  /* ---------- SIDEBAR ---------- */
+  .side{position:fixed;inset:0 auto 0 0;width:var(--side);background:var(--ink);color:var(--paper-soft);display:flex;flex-direction:column;z-index:50;border-right:1px solid var(--line-on-ink);}
+  .brand{padding:26px 24px 18px;border-bottom:1px solid var(--line-on-ink);}
+  .brand-org{font-size:12px;font-weight:600;color:var(--seal-light);letter-spacing:.02em;}
+  .brand-title{font-family:'Source Serif 4',serif;font-size:21px;line-height:1.2;margin:6px 0 4px;font-weight:700;}
+  .brand-sub{font-size:12px;color:rgba(239,233,220,.6);}
+  .prog{margin-top:16px;}
+  .prog-top{display:flex;justify-content:space-between;font-size:11.5px;color:rgba(239,233,220,.6);margin-bottom:6px;}
+  .prog-bar{height:4px;background:rgba(239,233,220,.12);}
+  .prog-fill{height:100%;width:0;background:var(--seal);transition:width .25s;}
+  .nav{flex:1;overflow-y:auto;padding:14px 12px;scrollbar-width:thin;scrollbar-color:var(--ink-3) transparent;}
+  .nav a{display:flex;align-items:center;gap:12px;padding:9px 12px;color:rgba(239,233,220,.74);text-decoration:none;font-size:14px;font-weight:500;border-left:2px solid transparent;position:relative;}
+  .nav a:hover{background:rgba(239,233,220,.05);color:var(--paper-soft);}
+  .nav a .n{font-family:'Source Serif 4',serif;font-weight:700;font-size:13px;color:var(--seal-light);width:20px;flex:none;}
+  .nav a.active{background:rgba(179,134,47,.16);border-left-color:var(--seal-light);color:var(--paper-soft);}
+  .nav a.seen::after{content:'✓';position:absolute;right:12px;font-size:11px;color:var(--trust-light);}
+  .topbar{display:none;}
+
+  /* ---------- LAYOUT ---------- */
+  main{margin-left:var(--side);}
+  .section{padding:84px 0;position:relative;}
+  .bg-ink{background:var(--ink);color:var(--paper-soft);}
+  .bg-paper{background:var(--paper);color:var(--ink);}
+  .bg-paper-dark{background:var(--paper-dark);color:var(--ink);}
+  .wrap{max-width:900px;margin:0 auto;padding:0 40px;}
+  .kicker{font-size:13px;font-weight:600;color:var(--seal);margin:0 0 14px;}
+  .bg-ink .kicker{color:var(--seal-light);}
+  .h2{font-size:clamp(26px,3.2vw,38px);line-height:1.18;margin-bottom:16px;max-width:680px;}
+  .lead{font-size:17px;line-height:1.6;color:var(--ink-soft);max-width:660px;margin-bottom:8px;}
+  .bg-ink .lead{color:rgba(239,233,220,.74);}
+  .bg-paper-dark .lead{color:#3C4642;}
+  .quote-inline{font-family:'Source Serif 4',serif;font-style:italic;font-size:19px;line-height:1.5;border-left:3px solid var(--seal);padding-left:18px;max-width:600px;margin-top:30px;}
+  .bg-ink .quote-inline{border-left-color:var(--seal-light);color:var(--paper-soft);}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:96px 0 84px;overflow:hidden;min-height:100vh;display:flex;align-items:center;}
+  .hero .wrap{position:relative;z-index:1;}
+  .hero-bg{position:absolute;inset:0;pointer-events:none;}
+  .h1{font-size:clamp(34px,5vw,56px);line-height:1.08;max-width:760px;margin:0 0 26px;color:var(--paper-soft);}
+  .hero-concept{font-family:'Source Serif 4',serif;font-style:italic;font-size:clamp(20px,2.3vw,25px);color:var(--seal-light);max-width:580px;line-height:1.4;margin-bottom:20px;}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line-on-ink);border:1px solid var(--line-on-ink);margin:38px 0 26px;max-width:720px;}
+  .stat{background:var(--ink-2);padding:18px 16px;}
+  .stat b{display:block;font-family:'Source Serif 4',serif;font-size:34px;color:var(--seal-light);line-height:1;}
+  .stat span{display:block;font-size:12.5px;color:rgba(239,233,220,.7);margin-top:8px;line-height:1.35;}
+  .howto{display:inline-flex;gap:10px;align-items:center;font-size:14px;color:rgba(239,233,220,.7);border:1px dashed var(--line-on-ink);padding:10px 16px;}
+  .howto i{font-style:normal;background:var(--seal);color:var(--ink);padding:2px 10px;font-weight:600;font-size:12.5px;}
+
+  /* ---------- MENU COMPONENT ---------- */
+  .gh{display:flex;justify-content:space-between;align-items:baseline;margin:34px 0 12px;gap:12px;flex-wrap:wrap;}
+  .gh h3{font-family:'IBM Plex Sans',sans-serif;font-size:14px;font-weight:600;color:var(--ink-soft);}
+  .bg-ink .gh h3{color:rgba(239,233,220,.65);}
+  .cnt{font-size:12px;color:var(--seal);font-weight:600;}
+  .bg-ink .cnt{color:var(--seal-light);}
+  .mrow{display:flex;flex-wrap:wrap;gap:8px;}
+  .mrow.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));}
+  .mb{border:1px solid var(--ink);background:transparent;color:inherit;padding:10px 16px;font-size:14px;font-weight:500;cursor:pointer;text-align:left;border-radius:2px;display:flex;gap:10px;align-items:baseline;transition:background .15s,color .15s,transform .15s;}
+  .mb .k{font-family:'Source Serif 4',serif;font-weight:700;color:var(--seal);font-size:15px;min-width:18px;}
+  .mb:hover{background:rgba(20,40,42,.07);transform:translateY(-1px);}
+  .mb.on{background:var(--ink);color:var(--paper-soft);}
+  .mb.on .k{color:var(--seal-light);}
+  .mb.seen:not(.on){border-color:var(--trust);}
+  .bg-ink .mb{border-color:var(--line-on-ink);background:rgba(239,233,220,.03);color:var(--paper-soft);}
+  .bg-ink .mb:hover{background:rgba(239,233,220,.1);}
+  .bg-ink .mb.on{background:var(--seal);color:var(--ink);border-color:var(--seal);}
+  .bg-ink .mb.on .k{color:var(--ink);}
+  .bg-ink .mb .k{color:var(--seal-light);}
+  .mpanel{margin-top:10px;background:var(--paper-soft);color:var(--ink);border:1px solid var(--line-on-paper);border-top:3px solid var(--seal);padding:26px 28px 28px;animation:rise .28s ease;position:relative;}
+  .bg-paper .mpanel{background:#fff;}
+  .mpanel[hidden]{display:none;}
+  @keyframes rise{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+  .tag{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;margin-bottom:12px;letter-spacing:.02em;}
+  .tag.dec{background:var(--seal);color:var(--ink);}
+  .tag.ofi{background:var(--trust);color:#fff;}
+  .tag.lei{background:var(--ink-3);color:var(--paper-soft);}
+  .tag.gui{background:var(--paper-dark);color:var(--ink);border:1px solid var(--line-on-paper);}
+  .mpanel h3{font-size:21px;margin-bottom:12px;}
+  .mpanel p{font-size:15px;line-height:1.65;color:var(--ink-soft);margin-bottom:10px;}
+  .mpanel p b,.mpanel li b{color:var(--ink);font-weight:600;}
+  .mpanel ul,.mpanel ol{margin:6px 0 12px;padding-left:20px;}
+  .mpanel li{font-size:14.5px;line-height:1.6;color:var(--ink-soft);margin-bottom:6px;}
+  .callout{border-left:3px solid var(--trust);background:rgba(47,107,99,.08);padding:12px 16px;margin:14px 0 4px;font-size:14px;color:var(--ink);}
+  .callout.warn{border-left-color:var(--alert);background:rgba(155,74,61,.08);}
+  .callout.gold{border-left-color:var(--seal);background:rgba(179,134,47,.1);}
+  .callout b{font-weight:600;}
+  .ex{font-family:'Source Serif 4',serif;font-style:italic;font-size:15px;color:var(--trust);}
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0;}
+  .duo div{padding:12px 14px;font-size:14px;line-height:1.5;border:1px solid var(--line-on-paper);}
+  .duo .no{border-color:rgba(155,74,61,.45);background:rgba(155,74,61,.06);color:var(--alert);}
+  .duo .yes{border-color:rgba(47,107,99,.5);background:rgba(47,107,99,.07);color:var(--trust);}
+  .duo small{display:block;font-weight:600;font-size:11px;margin-bottom:4px;letter-spacing:.03em;}
+
+  /* accordion */
+  .acc{border:1px solid var(--line-on-paper);background:var(--paper-soft);}
+  .acc-i + .acc-i{border-top:1px solid var(--line-on-paper);}
+  .acc-b{width:100%;background:transparent;border:0;padding:16px 20px;display:flex;align-items:center;gap:14px;cursor:pointer;color:var(--ink);font-size:15.5px;font-weight:600;text-align:left;}
+  .acc-b:hover{background:rgba(179,134,47,.08);}
+  .acc-b .ic{width:34px;height:34px;flex:none;border-radius:50%;background:var(--ink);color:var(--seal-light);display:grid;place-items:center;font-size:15px;}
+  .acc-b small{display:block;font-size:12.5px;font-weight:400;color:var(--ink-soft);}
+  .acc-b .chev{margin-left:auto;color:var(--seal);transition:transform .2s;font-size:13px;}
+  .acc-i.on .chev{transform:rotate(90deg);}
+  .acc-i.on .acc-b{background:rgba(179,134,47,.12);}
+  .acc-p{padding:4px 22px 22px 68px;animation:rise .25s ease;}
+  .acc-p[hidden]{display:none;}
+  .acc-p p{font-size:14.5px;line-height:1.65;color:var(--ink-soft);margin-bottom:8px;}
+  .acc-p li{font-size:14.5px;line-height:1.6;color:var(--ink-soft);margin-bottom:5px;}
+  .acc-p ul{padding-left:18px;margin:6px 0 10px;}
+  .acc-p h4{font-size:12.5px;font-weight:600;color:var(--seal);margin:12px 0 4px;letter-spacing:.02em;}
+
+  /* tools */
+  .tool{background:var(--ink);color:var(--paper-soft);padding:26px 28px;margin-top:26px;border-top:3px solid var(--seal);}
+  .tool h3{font-size:20px;margin-bottom:6px;color:var(--paper-soft);}
+  .tool > p{font-size:14px;color:rgba(239,233,220,.7);margin-bottom:16px;max-width:560px;}
+  .chk{display:flex;flex-direction:column;gap:6px;}
+  .chk label{display:flex;gap:12px;align-items:flex-start;padding:10px 14px;border:1px solid var(--line-on-ink);cursor:pointer;font-size:14px;line-height:1.45;background:rgba(239,233,220,.03);}
+  .chk label:hover{background:rgba(239,233,220,.08);}
+  .chk input{accent-color:var(--seal);margin-top:3px;width:16px;height:16px;flex:none;}
+  .chk label.on{border-color:var(--seal-light);background:rgba(179,134,47,.16);}
+  .meter{height:6px;background:rgba(239,233,220,.12);margin:18px 0 12px;}
+  .meter i{display:block;height:100%;width:0;background:var(--seal);transition:width .25s,background .25s;}
+  .verdict{font-family:'Source Serif 4',serif;font-size:19px;line-height:1.35;}
+  .verdict.ok{color:#8FC095;} .verdict.mid{color:var(--seal-light);}
+  .verdict small{display:block;font-family:'IBM Plex Sans',sans-serif;font-size:13px;color:rgba(239,233,220,.7);margin-top:6px;}
+  .calcs{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .calc{background:rgba(239,233,220,.05);border:1px solid var(--line-on-ink);padding:18px;}
+  .calc h4{font-family:'IBM Plex Sans',sans-serif;font-size:13px;font-weight:600;color:var(--seal-light);margin:0 0 4px;}
+  .calc p{font-size:13px;color:rgba(239,233,220,.65);margin-bottom:10px;}
+  .calc input[type=date]{background:var(--ink-2);border:1px solid var(--line-on-ink);color:var(--paper-soft);padding:8px 10px;font-family:inherit;font-size:14px;width:100%;color-scheme:dark;}
+  .calc output{display:block;margin-top:12px;font-family:'Source Serif 4',serif;font-size:20px;color:var(--paper-soft);min-height:28px;}
+
+  /* flow / stepper */
+  .stepper{display:flex;gap:0;margin:8px 0 0;overflow-x:auto;padding-bottom:6px;}
+  .stepper .mb{flex:1;min-width:150px;flex-direction:column;gap:6px;border-radius:0;margin-right:-1px;padding:14px 14px 16px;}
+  .stepper .mb .k{font-size:26px;}
+  .stepper .mb span{font-size:13.5px;line-height:1.35;}
+
+  /* table */
+  .tbl{width:100%;border-collapse:collapse;font-size:14px;margin-top:24px;}
+  .tbl th{text-align:left;font-size:12px;font-weight:600;padding:10px 14px;background:var(--ink);color:var(--paper-soft);}
+  .tbl th:last-child{background:var(--seal);color:var(--ink);}
+  .tbl td{padding:13px 14px;border-bottom:1px solid var(--line-on-paper);vertical-align:top;line-height:1.5;color:var(--ink-soft);background:var(--paper-soft);}
+  .tbl td:first-child{font-weight:600;color:var(--ink);width:19%;}
+  .tbl td:last-child{background:#fff;color:var(--ink);}
+  .tblw{overflow-x:auto;}
+
+  /* takeaways */
+  .take{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-on-ink);margin-top:34px;}
+  .take div{background:var(--ink-2);padding:24px 22px;}
+  .take b{font-family:'Source Serif 4',serif;font-size:30px;color:var(--seal-light);display:block;margin-bottom:6px;}
+  .take h3{font-size:17px;margin-bottom:8px;color:var(--paper-soft);}
+  .take p{font-size:14px;color:rgba(239,233,220,.7);line-height:1.55;}
+  .final-big{font-family:'Source Serif 4',serif;font-weight:700;font-size:clamp(26px,3.6vw,40px);line-height:1.25;margin-top:56px;max-width:640px;}
+  .final-big em{color:var(--seal-light);font-style:italic;}
+  .foot-note{margin-top:34px;font-size:13px;color:rgba(239,233,220,.55);max-width:640px;border-top:1px solid var(--line-on-ink);padding-top:18px;}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:980px){
+    .side{transform:translateX(-100%);transition:transform .25s;}
+    .side.open{transform:none;box-shadow:0 0 0 100vmax rgba(20,40,42,.55);}
+    main{margin-left:0;}
+    .topbar{display:flex;position:sticky;top:0;z-index:40;background:var(--ink);color:var(--paper-soft);padding:12px 18px;align-items:center;gap:14px;border-bottom:1px solid var(--line-on-ink);}
+    .topbar button{background:var(--seal);border:0;color:var(--ink);font-weight:700;padding:8px 12px;cursor:pointer;font-size:15px;}
+    .topbar span{font-family:'Source Serif 4',serif;font-weight:700;font-size:16px;}
+    .wrap{padding:0 22px;}
+    .section{padding:60px 0;}
+    .hero{min-height:0;}
+    .stats{grid-template-columns:1fr 1fr;}
+    .duo,.calcs,.take{grid-template-columns:1fr;}
+    .acc-p{padding-left:22px;}
+    .mpanel{padding:22px 20px;}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important;}}
+</style>
+</head>
+<body>
+
+<aside class="side" id="side" aria-label="Navegação do estudo">
+  <div class="brand">
+    <p class="brand-org">Governo de Goiás · SEAD</p>
+    <h1 class="brand-title">Carta de Serviços ao Usuário</h1>
+    <p class="brand-sub">Estudo do Decreto nº 10.859, de 27/01/2026</p>
+    <div class="prog">
+      <div class="prog-top"><span>Sua leitura</span><span id="progTxt">0%</span></div>
+      <div class="prog-bar"><div class="prog-fill" id="progFill"></div></div>
+    </div>
+  </div>
+  <nav class="nav" id="nav"></nav>
+</aside>
+
+<div class="topbar"><button id="burger" aria-label="Abrir menu">☰</button><span>Carta de Serviços · Goiás</span></div>
+
+<main>
+
+<!-- ================= INÍCIO ================= -->
+<header class="section bg-ink hero" id="inicio" data-label="Início" data-n="◆">
+  <div class="hero-bg">
+    <svg width="100%" height="100%" style="position:absolute;inset:0" preserveAspectRatio="none" aria-hidden="true">
+      <rect x="58%" y="6%" width="34%" height="130" fill="#1D3336" stroke="rgba(239,233,220,0.1)" transform="rotate(-4 700 60)"/>
+      <rect x="64%" y="14%" width="30%" height="130" fill="#284245" stroke="rgba(239,233,220,0.12)" transform="rotate(3 700 120)"/>
+      <rect x="60%" y="24%" width="32%" height="130" fill="#1D3336" stroke="rgba(179,134,47,0.25)" transform="rotate(-2 700 200)"/>
+    </svg>
+  </div>
+  <div class="wrap">
+    <p class="kicker">Estudo para gestores, pontos focais e responsáveis por serviços</p>
+    <h1 class="h1">Carta de Serviços ao Usuário do Estado de Goiás</h1>
+    <p class="hero-concept">“Um documento único que ajuda o cidadão a localizar, compreender e utilizar cada serviço público.”</p>
+    <p class="lead">Este estudo parte do decreto mais recente sobre o tema e usa o material da Oficina da Carta de Serviços e da Oficina de Linguagem Simples para explicar o que o decreto deixa em aberto.</p>
+    <div class="stats">
+      <div class="stat"><b data-to="13">0</b><span>informações mínimas em cada serviço</span></div>
+      <div class="stat"><b data-to="7">0</b><span>critérios para cadastro obrigatório</span></div>
+      <div class="stat"><b data-to="5">0</b><span>dias úteis para refletir uma mudança</span></div>
+      <div class="stat"><b data-to="120">0</b><span>dias, no máximo, sem verificar um serviço</span></div>
+    </div>
+    <p class="howto"><i>Como usar</i> Clique nos botões. A explicação abre logo abaixo deles.</p>
+  </div>
+</header>
+
+<!-- ================= 1 O QUE É ================= -->
+<section class="section bg-paper" id="conceito" data-label="O que é a Carta" data-n="1">
+  <div class="wrap">
+    <p class="kicker">Ponto de partida</p>
+    <h2 class="h2">O que é a Carta de Serviços</h2>
+    <p class="lead">Não é mais uma carta para cada órgão. É um instrumento público, centralizado, que reúne todos os serviços do Poder Executivo estadual.</p>
+    <div class="gh"><h3>Escolha um tema</h3><span class="cnt" data-cnt="gConceito"></span></div>
+    <div class="mrow" data-menu="gConceito"></div>
+    <div class="mpanel" data-panel="gConceito" hidden></div>
+  </div>
+</section>
+
+<!-- ================= 2 SERVIÇO ================= -->
+<section class="section bg-paper-dark" id="servico" data-label="Qual serviço deve ir para a Carta?" data-n="2">
+  <div class="wrap">
+    <p class="kicker">O que entra na Carta</p>
+    <h2 class="h2">Qual serviço deve ir para a Carta?</h2>
+    <p class="lead">Nem tudo que o órgão faz vai para a Carta. O decreto define sete critérios. Quando todos estão presentes, o cadastro é obrigatório.</p>
+    <div class="gh"><h3>Os sete critérios</h3><span class="cnt" data-cnt="gCriterios"></span></div>
+    <div class="mrow grid" data-menu="gCriterios"></div>
+    <div class="mpanel" data-panel="gCriterios" hidden></div>
+
+    <div class="tool" id="classif">
+      <h3>Teste rápido: o que eu faço deve ir para a Carta?</h3>
+      <p>Pense em uma atividade do seu órgão e marque o que é verdade para ela.</p>
+      <div class="chk" id="chk"></div>
+      <div class="meter"><i id="chkBar"></i></div>
+      <div class="verdict" id="chkOut">Marque os critérios para ver o resultado.</div>
+    </div>
+
+    <div class="gh" style="margin-top:44px"><h3>Nem tudo é “serviço de atendimento”</h3><span class="cnt" data-cnt="gTipos"></span></div>
+    <div class="mrow" data-menu="gTipos"></div>
+    <div class="mpanel" data-panel="gTipos" hidden></div>
+  </div>
+</section>
+
+<!-- ================= 3 ATORES ================= -->
+<section class="section bg-ink" id="atores" data-label="Quem faz o quê" data-n="3">
+  <div class="wrap">
+    <p class="kicker">Governança</p>
+    <h2 class="h2">Quem faz o quê</h2>
+    <p class="lead lead-on-ink">A Carta funciona como uma rede. Cada ator tem um papel claro, e a SEAD coordena o conjunto.</p>
+    <div class="gh"><h3>Abra cada papel</h3><span class="cnt" data-cnt="gAtores"></span></div>
+    <div class="acc" id="accAtores"></div>
+  </div>
+</section>
+
+<!-- ================= 4 CADASTRO ================= -->
+<section class="section bg-paper" id="cadastro" data-label="Do cadastro à publicação" data-n="4">
+  <div class="wrap">
+    <p class="kicker">Ciclo de vida do serviço</p>
+    <h2 class="h2">Do cadastro à publicação</h2>
+    <p class="lead">Antes de cadastrar, é preciso entender o serviço. Depois, o caminho segue um ciclo com validação da unidade central.</p>
+    <div class="gh"><h3>Antes de começar</h3><span class="cnt" data-cnt="gPre"></span></div>
+    <div class="mrow" data-menu="gPre"></div>
+    <div class="mpanel" data-panel="gPre" hidden></div>
+    <div class="gh" style="margin-top:44px"><h3>O ciclo em cinco passos</h3><span class="cnt" data-cnt="gCiclo"></span></div>
+    <div class="stepper" data-menu="gCiclo"></div>
+    <div class="mpanel" data-panel="gCiclo" hidden></div>
+  </div>
+</section>
+
+<!-- ================= 5 FICHA ================= -->
+<section class="section bg-paper-dark" id="ficha" data-label="A ficha do serviço" data-n="5">
+  <div class="wrap">
+    <p class="kicker">Padronização</p>
+    <h2 class="h2">A ficha do serviço: 13 informações</h2>
+    <p class="lead">Todo serviço publicado precisa trazer, no mínimo, estes treze campos. Clique em cada um para ver o que preencher e como evitar erros comuns.</p>
+    <div class="gh"><h3>Os 13 campos</h3><span class="cnt" data-cnt="gFicha"></span></div>
+    <div class="mrow grid" data-menu="gFicha"></div>
+    <div class="mpanel" data-panel="gFicha" hidden></div>
+  </div>
+</section>
+
+<!-- ================= 6 LINGUAGEM ================= -->
+<section class="section bg-ink" id="ling" data-label="Linguagem simples" data-n="6">
+  <div class="wrap">
+    <p class="kicker">Obrigatória em todos os serviços</p>
+    <h2 class="h2">Linguagem simples, direta e inclusiva</h2>
+    <p class="lead">O objetivo é que as pessoas encontrem o que procuram, entendam o que leem e consigam o que precisam, nesta ordem. São sete diretrizes.</p>
+    <div class="gh"><h3>As sete diretrizes</h3><span class="cnt" data-cnt="gLing"></span></div>
+    <div class="mrow" data-menu="gLing"></div>
+    <div class="mpanel" data-panel="gLing" hidden></div>
+
+    <div class="gh" style="margin-top:44px"><h3>Antes e depois, na prática</h3><span class="cnt" data-cnt="gAD"></span></div>
+    <div class="mrow" data-menu="gAD"></div>
+    <div class="mpanel" data-panel="gAD" hidden></div>
+  </div>
+</section>
+
+<!-- ================= 7 PRAZOS ================= -->
+<section class="section bg-paper" id="prazos" data-label="Prazos e qualidade" data-n="7">
+  <div class="wrap">
+    <p class="kicker">Manter a Carta viva</p>
+    <h2 class="h2">Prazos, qualidade e transparência</h2>
+    <p class="lead">Uma Carta desatualizada vira promessa que o Estado não cumpre. Por isso o decreto fixa prazos, auditoria e ranking.</p>
+    <div class="gh"><h3>Escolha um tema</h3><span class="cnt" data-cnt="gPrazos"></span></div>
+    <div class="mrow" data-menu="gPrazos"></div>
+    <div class="mpanel" data-panel="gPrazos" hidden></div>
+
+    <div class="tool">
+      <h3>Calculadoras de prazo</h3>
+      <p>Escolha uma data e veja até quando a Carta precisa ser atualizada ou verificada.</p>
+      <div class="calcs">
+        <div class="calc">
+          <h4>Um serviço mudou</h4>
+          <p>Data da mudança → limite de 5 dias úteis (sábados e domingos não contam; feriados não são considerados).</p>
+          <input type="date" id="dMud" aria-label="Data da mudança">
+          <output id="oMud">Escolha uma data</output>
+        </div>
+        <div class="calc">
+          <h4>Última verificação</h4>
+          <p>Data da última verificação registrada → limite de 120 dias para verificar de novo.</p>
+          <input type="date" id="dVer" aria-label="Data da última verificação">
+          <output id="oVer">Escolha uma data</output>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 8 FERRAMENTAS ================= -->
+<section class="section bg-paper-dark" id="ferr" data-label="Ferramentas e canais" data-n="8">
+  <div class="wrap">
+    <p class="kicker">Onde tudo acontece</p>
+    <h2 class="h2">Ferramentas e canais</h2>
+    <p class="lead">A Carta está publicada no Portal EXPRESSO e é administrada pelos servidores no EXPRESSO Admin. Os dois se conectam à Cadeia de Valor do Estado.</p>
+    <div class="gh"><h3>Escolha uma ferramenta</h3><span class="cnt" data-cnt="gFerr"></span></div>
+    <div class="mrow" data-menu="gFerr"></div>
+    <div class="mpanel" data-panel="gFerr" hidden></div>
+
+    <div class="gh" style="margin-top:44px"><h3>Como classificar o tipo do serviço no EXPRESSO</h3><span class="cnt" data-cnt="gTipoDig"></span></div>
+    <div class="mrow" data-menu="gTipoDig"></div>
+    <div class="mpanel" data-panel="gTipoDig" hidden></div>
+  </div>
+</section>
+
+<!-- ================= 9 O QUE MUDOU ================= -->
+<section class="section bg-paper" id="mudou" data-label="O que mudou" data-n="9">
+  <div class="wrap">
+    <p class="kicker">Para quem conhecia o modelo antigo</p>
+    <h2 class="h2">O que mudou com o novo decreto</h2>
+    <p class="lead">O Decreto nº 10.859/2026 revogou o Decreto nº 9.574/2019. Se um material antigo disser outra coisa, vale o que está na coluna da direita.</p>
+    <div class="tblw">
+    <table class="tbl">
+      <thead><tr><th>Tema</th><th>Modelo anterior (revogado)</th><th>Vale hoje</th></tr></thead>
+      <tbody>
+        <tr><td>Formato</td><td>Cada órgão elaborava e divulgava a sua própria Carta.</td><td>Um documento único e centralizado, que reúne os serviços de todos os órgãos e entidades.</td></tr>
+        <tr><td>Conteúdo mínimo</td><td>Seis itens, como relação de serviços, requisitos, etapas, prazo, forma de prestação e canais de manifestação.</td><td>Treze informações padronizadas por serviço, incluindo indicadores, base legal e acessibilidade.</td></tr>
+        <tr><td>O que cadastrar</td><td>Todos os serviços prestados ao cidadão.</td><td>Os processos da Cadeia de Valor Integrada que cumprem sete critérios.</td></tr>
+        <tr><td>Quem coordena</td><td>A Superintendência Central de Transformação da Gestão Pública.</td><td>A SEAD, pela Superintendência Central de Transformação Pública e sua Gerência de Gestão da Carta de Serviços.</td></tr>
+        <tr><td>Rede de gestão</td><td>Sem figuras setoriais definidas.</td><td>Unidade setorial, ponto focal setorial e responsável pelo serviço, cada um com atribuições próprias.</td></tr>
+        <tr><td>Atualização</td><td>Atualização constante, sem prazo numérico.</td><td>Até cinco dias úteis após uma mudança e verificação a cada 120 dias, com registro no EXPRESSO Admin.</td></tr>
+        <tr><td>Linguagem</td><td>Sem exigência específica.</td><td>Linguagem simples, direta e inclusiva é obrigatória.</td></tr>
+        <tr><td>Qualidade</td><td>Avaliação mensal dos serviços e plano de ação.</td><td>Auditoria mínima anual, consulta sistemática à Ouvidoria e ao Conselho de Usuários e possibilidade de suspender serviço com falha.</td></tr>
+        <tr><td>Ranking</td><td>Divulgação no mínimo anual.</td><td>Divulgação no mínimo semestral.</td></tr>
+        <tr><td>Plataforma</td><td>Goiás Digital, Portal de Serviços.</td><td>Portal EXPRESSO e EXPRESSO Admin.</td></tr>
+        <tr><td>Outros Poderes</td><td>Não previsto.</td><td>Podem participar mediante termo de cooperação técnica.</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 10 GLOSSÁRIO ================= -->
+<section class="section bg-paper-dark" id="glos" data-label="Glossário" data-n="10">
+  <div class="wrap">
+    <p class="kicker">Vocabulário oficial</p>
+    <h2 class="h2">Glossário do decreto</h2>
+    <p class="lead">Estas são as definições que o próprio decreto adota. Use as mesmas palavras nas suas descrições.</p>
+    <div class="gh"><h3>Clique em um termo</h3><span class="cnt" data-cnt="gGlos"></span></div>
+    <div class="mrow" data-menu="gGlos"></div>
+    <div class="mpanel" data-panel="gGlos" hidden></div>
+  </div>
+</section>
+
+<!-- ================= 11 FECHAMENTO ================= -->
+<footer class="section bg-ink" id="fim" data-label="Em uma frase" data-n="11">
+  <div class="wrap">
+    <p class="kicker">Para levar</p>
+    <h2 class="h2">Três ideias que resumem a Carta</h2>
+    <div class="take">
+      <div><b>1</b><h3>Uma só porta</h3><p>Um documento único e centralizado, publicado no Portal EXPRESSO, com os serviços de todos os órgãos.</p></div>
+      <div><b>2</b><h3>Uma rede responsável</h3><p>SEAD, unidade central, ponto focal e responsável pelo serviço trabalham juntos, com prazos e registros claros.</p></div>
+      <div><b>3</b><h3>Uma linguagem que todos entendem</h3><p>Cada serviço segue a mesma ficha e usa linguagem simples, para que ninguém desista no meio do caminho.</p></div>
+    </div>
+    <p class="final-big">O cidadão precisa <em>localizar</em>, <em>compreender</em> e <em>utilizar</em> o serviço.</p>
+    <p class="foot-note">Base deste estudo: Decreto nº 10.859, de 27 de janeiro de 2026 (referência principal). Complementos: material da Oficina da Carta de Serviços, da Oficina de Linguagem Simples, Diretrizes de Linguagem Simples aplicadas ao EXPRESSO e Guia da Carta de Serviços. Em caso de divergência, vale o decreto.</p>
+  </div>
+</footer>
+
+</main>
+
+<script>
+(function(){
+'use strict';
+var D = 'dec', O = 'ofi', L = 'lei', G = 'gui';
+var TAGNAME = {dec:'Decreto 10.859/2026', ofi:'Oficina', lei:'Legislação', gui:'Diretrizes'};
+
+/* ============ CONTEÚDO ============ */
+var DATA = {
+
+gConceito: [
+ {k:'definicao', label:'Definição', tag:D, title:'Um documento único, de caráter centralizado',
+  html:'<p>A Carta de Serviços ao Usuário do Estado de Goiás <b>reúne os serviços públicos prestados</b> pelos órgãos e entidades da administração direta, autárquica e fundacional. Ela é, ao mesmo tempo, um instrumento de <b>gestão</b> e de <b>governança</b> dos serviços do Poder Executivo estadual.</p><p>Para o cidadão, é um instrumento público de <b>transparência</b>: informa os serviços, as formas de acesso, os padrões de qualidade e os compromissos assumidos.</p><div class="callout gold"><b>Em linguagem simples:</b> é a vitrine oficial onde qualquer pessoa descobre o que o Estado oferece e como pedir.</div><p style="margin-top:14px">O texto da Carta reúne, em linguagem simples e acessível, tudo o que o usuário precisa para localizar, compreender e utilizar um serviço: requisitos, etapas, prazos, custos, canais de atendimento, compromissos de qualidade e indicadores relevantes.</p>'},
+ {k:'quem', label:'Quem participa', tag:D, title:'Quem precisa cadastrar e manter seus serviços',
+  html:'<ul><li>Órgãos e entidades da administração <b>direta, autárquica e fundacional</b>;</li><li><b>Empresas públicas</b> e <b>sociedades de economia mista</b> controladas direta ou indiretamente pelo Estado;</li><li>As demais entidades prestadoras de serviços públicos no âmbito do Poder Executivo.</li></ul><p>Todos devem <b>cadastrar, manter atualizadas e divulgar</b> as informações dos seus serviços.</p><div class="callout"><b>Outros Poderes e âmbitos</b> (como Judiciário, Legislativo ou municípios) podem entrar na Carta mediante <b>termo de cooperação técnica</b>, que define a integração, a governança compartilhada, as responsabilidades e a divulgação.</div><div class="callout gold"><b>Subordinação técnica:</b> todos ficam subordinados tecnicamente à SEAD no que diz respeito à gestão da Carta, incluindo a sistemática, as metodologias e as ferramentas.</div>'},
+ {k:'objetivos', label:'Para que serve', tag:D, title:'Sete objetivos da Carta como instrumento de gestão',
+  html:'<ol><li><b>Informar</b> o usuário sobre os serviços prestados e as formas de acesso;</li><li><b>Padronizar</b> o atendimento e elevar a qualidade da informação;</li><li>Promover e sustentar a <b>transparência, a simplificação, a transformação digital e a acessibilidade</b>;</li><li>Permitir que o usuário <b>avalie, proponha melhorias e exerça o controle social</b> de forma qualificada;</li><li>Fortalecer a <b>cidadania</b>;</li><li>Incentivar a <b>responsabilidade administrativa</b>;</li><li>Dar informação clara e atualizada às discussões das salas do <b>Conselho de Usuários dos Serviços Públicos</b> do Estado.</li></ol>'},
+ {k:'base', label:'Base legal', tag:L, title:'As normas que sustentam a Carta',
+  html:'<ul><li><b>Lei federal nº 13.460/2017</b>: direitos do usuário dos serviços públicos. É ela que obriga os órgãos a divulgar uma Carta de Serviços e a usar linguagem simples e compreensível.</li><li><b>Lei estadual nº 20.846/2020</b>: Política Estadual de Atendimento ao Cidadão e Programa Simplifica Goiás. Prevê que todos os serviços estejam em um portal único do cidadão.</li><li><b>Lei estadual nº 23.453/2025</b>: fundamento da obrigatoriedade da linguagem simples nos serviços.</li><li><b>Decreto nº 10.287/2023</b>: Sistema Estruturador das Redes de Gestão (SIGES), que fixa os requisitos do ponto focal setorial.</li></ul><div class="callout"><b>Também citadas na oficina:</b> a Lei Geral de Proteção de Dados (13.709/2018), a lei de racionalização de atos e procedimentos, com o Selo de Desburocratização e Simplificação (13.726/2018), e a Lei do Governo Digital (14.129/2021).</div><div class="callout warn"><b>Atenção:</b> o Decreto nº 9.574/2019, ainda citado em materiais antigos, está <b>revogado</b>.</div>'},
+ {k:'onde', label:'Onde consultar', tag:D, title:'O Portal EXPRESSO',
+  html:'<p>A Carta está publicada no <b>Portal EXPRESSO</b>, o portal único de serviços do Estado de Goiás: <b>www.expresso.go.gov.br</b>.</p><p>Os servidores administram conteúdos, acessos e integrações pelo <b>EXPRESSO Admin</b>, plataforma de gestão dos serviços.</p><p>Por isso, todos os órgãos devem <b>divulgar o Portal EXPRESSO</b> em seus sites institucionais, redes sociais e outros canais, com prioridade.</p>'}
+],
+
+gCriterios: [
+ {k:'c1', n:'1', label:'Tem usuário', tag:D, title:'O processo tem um usuário ou destinatário',
+  html:'<p>O processo atende a um <b>usuário externo</b> ou a um <b>usuário interno</b> (servidor, unidade administrativa ou outro órgão público).</p><div class="callout gold">O decreto reconhece os dois tipos de usuário. Materiais mais antigos falam só em usuário externo; vale o decreto.</div><p style="margin-top:12px"><b>Usuário externo:</b> não tem vínculo formal ou direto com o órgão. <b>Usuário interno:</b> tem vínculo formal com o órgão.</p>'},
+ {k:'c2', n:'2', label:'Gera uma entrega', tag:D, title:'O processo gera algo de interesse direto do usuário',
+  html:'<p>O resultado pode ser uma <b>entrega, autorização, documento, benefício, informação, atendimento ou outro resultado</b> de interesse direto de quem pediu.</p><p class="ex">Exemplo: a Carteira de Identidade Nacional que o cidadão recebe ao final do atendimento.</p>'},
+ {k:'c3', n:'3', label:'Tem fundamento legal', tag:D, title:'Existe base legal que comprova a competência',
+  html:'<p>É preciso ter um <b>fundamento legal</b> que comprove que o órgão tem competência para prestar o serviço. Isso evita ofertas indevidas ou sem respaldo normativo.</p>'},
+ {k:'c4', n:'4', label:'Há interação', tag:D, title:'Há interação com o cidadão',
+  html:'<p>Existe contato entre o órgão e o cidadão, <b>direto ou indireto</b>, por meio de solicitação, atendimento ou entrega de resultado. Interação é um pedido ou demanda específica que exige resposta, análise ou providência.</p><p class="ex">Exemplo, na renovação da CNH: agendar atendimento, abrir o processo e coletar a biometria.</p>'},
+ {k:'c5', n:'5', label:'É padronizado', tag:D, title:'O processo é padronizado e replicável',
+  html:'<p>As <b>etapas, os prazos, os documentos e os canais</b> de atendimento estão formalmente definidos e podem ser repetidos para cada usuário.</p><p>Podem existir exceções, desde que também estejam previstas no processo.</p><p class="ex">Exemplo: para renovar a CNH, abrir o processo, pagar a taxa, fazer o exame médico, entregar a documentação e retirar o documento.</p>'},
+ {k:'c6', n:'6', label:'Entrega completa', tag:D, title:'O serviço termina em uma entrega final e completa',
+  html:'<p>Chama-se <b>integralidade ou suficiência</b>. O serviço começa com um objetivo do usuário e termina com um resultado, <b>atingido ou não</b>, sem depender de outro serviço.</p><p>Ele pode ter várias etapas e passar por vários órgãos. O que importa é que, do ponto de vista do cidadão, comece no pedido e termine na entrega.</p>'},
+ {k:'c7', n:'7', label:'É personalizado', tag:D, title:'O resultado é individualizado',
+  html:'<p>A <b>personalização</b> aparece quando a resposta é dada a uma pessoa ou empresa específica, por causa de uma solicitação específica.</p><p class="ex">Exemplo: todos têm direito à CIN, mas ela só é emitida para quem solicita, e é única e pessoal.</p>'}
+],
+
+gTipos: [
+ {k:'atend', label:'Serviço de atendimento', tag:D, title:'O que vai para a Carta',
+  html:'<p>É o serviço público prestado de forma <b>individualizada</b>, que começa a partir de uma interação presencial, digital ou automatizada do usuário com o órgão e termina com a <b>entrega do resultado final</b>.</p><p class="ex">Exemplos: renovar a CNH, obter a certidão de antecedentes criminais, solicitar atendimento por programa social.</p>'},
+ {k:'cont', label:'Serviço continuado', tag:O, title:'Prestado sem precisar de pedido',
+  html:'<p>São atividades que a administração presta diretamente, ou por terceiros contratados, <b>sem a necessidade de solicitação</b> do usuário.</p><p class="ex">Exemplos: saneamento e policiamento.</p><div class="callout">Como não dependem de pedido individual, esses serviços não se enquadram nos critérios de cadastro obrigatório.</div>'},
+ {k:'facil', label:'Facilidades', tag:O, title:'Apoiam o serviço, mas não são o serviço',
+  html:'<p>São recursos que <b>simplificam a experiência</b> do usuário, mas não geram sozinhos o resultado final.</p><ul><li><b>Agendamento:</b> ajuda a chegar ao resultado que a pessoa deseja.</li><li><b>Consultar processos e pedidos:</b> permite acompanhar o andamento até o resultado.</li></ul>'},
+ {k:'etapa', label:'Etapa de serviço', tag:O, title:'Parte do caminho',
+  html:'<p>Etapa é cada momento em que o usuário precisa <b>interagir ou receber informações</b> durante a prestação padrão do serviço. Ela compõe o serviço, mas <b>sozinha não entrega o resultado final</b>.</p><p class="ex">Exemplo: solicitar certidão → aguardar emissão → receber certidão.</p>'}
+],
+
+gAtores: [
+ {ic:'🏛', label:'SEAD', sub:'Coordena a implementação e publica normas complementares', tag:D,
+  html:'<ul><li>Coordena a <b>implementação do decreto</b> e articula os órgãos e entidades envolvidos;</li><li>Publica <b>normas complementares</b>;</li><li>Divulga o <b>ranking</b> dos órgãos, no mínimo a cada semestre;</li><li>Define a sistemática, as metodologias e as ferramentas de gestão da Carta, às quais todos ficam subordinados tecnicamente.</li></ul>'},
+ {ic:'⚙', label:'Unidade central de gestão', sub:'Gerência de Gestão da Carta de Serviços (GECART), na Superintendência Central de Transformação Pública', tag:D,
+  html:'<h4>O QUE FAZ</h4><ul><li><b>Define e padroniza</b> procedimentos, diretrizes, metodologias, ferramentas e instruções de trabalho;</li><li><b>Assessora</b> os órgãos na aplicação de boas práticas;</li><li><b>Promove a cultura</b> da gestão da Carta com oficinas, seminários, projetos e outros eventos;</li><li><b>Monitora resultados</b> nos órgãos para melhorar a gestão e os serviços;</li><li><b>Integra e estimula</b> as unidades setoriais;</li><li><b>Gere a Carta</b> e a atualiza continuamente, integrada às instruções internas usadas pelos atendentes presenciais do Vapt Vupt e do EXPRESSO.</li></ul><h4>NA PRÁTICA (OFICINA)</h4><ul><li>Modera o conteúdo e autoriza o cadastro;</li><li>Publica, suspende ou desativa serviços;</li><li>Cria e exclui acessos, conforme pedido dos pontos focais;</li><li>Capacita a rede por meio de cursos e oficinas da Escola de Governo.</li></ul>'},
+ {ic:'🧭', label:'Direção de gestão integrada setorial', sub:'Cria o grupo de trabalho da Carta no órgão', tag:O,
+  html:'<p>Superintendentes e diretores de gestão integrada do órgão ou entidade:</p><ul><li>Criam o <b>Grupo de Trabalho da Carta de Serviços</b>, por portaria que designa participantes e tarefas;</li><li>Promovem <b>reuniões de governança</b> com o ponto focal, com agenda definida.</li></ul>'},
+ {ic:'📌', label:'Ponto focal setorial', sub:'Servidor designado que coordena a Carta no órgão', tag:D,
+  html:'<ul><li>Zela para que os serviços do órgão estejam <b>atualizados e funcionais</b>;</li><li>Apoia os responsáveis pelos serviços;</li><li>Garante a <b>descrição clara da jornada</b> do usuário;</li><li>Revisa os registros no EXPRESSO Admin com <b>linguagem simples</b>;</li><li>Identifica necessidades de <b>capacitação</b>;</li><li>Representa o órgão nas ações convocadas pela unidade central;</li><li>Identifica <b>novos serviços</b> ainda não cadastrados;</li><li>Comunica ao responsável pela gestão de processos as <b>alterações</b> dos serviços;</li><li>Identifica e prioriza serviços para o <b>ciclo de transformação</b>;</li><li>Atende <b>tempestivamente</b> às solicitações da unidade central.</li></ul><div class="callout">O ponto focal deve ficar lotado na unidade setorial de gestão da Carta e cumprir os requisitos do Sistema Estruturador das Redes de Gestão (SIGES).</div><h4>NA PRÁTICA (OFICINA)</h4><ul><li>Elabora o <b>plano de trabalho</b> com a lista de serviços e prazos para qualificar os conteúdos;</li><li>Reúne responsáveis pelos serviços e a TI com intervalo de, no máximo, 120 dias;</li><li>Mantém atualizado o cadastro da rede da Carta.</li></ul>'},
+ {ic:'🧾', label:'Responsável pelo serviço', sub:'Servidor da unidade com responsabilidade técnica e normativa', tag:D,
+  html:'<ul><li>Identifica os serviços sob sua responsabilidade e os mantém <b>atualizados e funcionais</b>;</li><li>Coopera com o ponto focal na <b>descrição clara</b> do serviço;</li><li><b>Informa alterações</b> relacionadas aos serviços;</li><li>Promove a <b>simplificação e a transformação digital</b>;</li><li>Envolve o ponto focal na criação ou melhoria de serviços;</li><li>Garante o <b>alinhamento</b> entre requisitos, instruções internas e compromissos de qualidade.</li></ul>'},
+ {ic:'💻', label:'TI setorial', sub:'Apoia os links e as soluções digitais dos serviços', tag:O,
+  html:'<ul><li>Elabora os <b>links dos serviços digitais</b> do EXPRESSO;</li><li>Apoia a gestão de links e outras soluções digitais;</li><li>Atua mediante solicitação do ponto focal, em serviços novos, simplificados ou transformados.</li></ul>'},
+ {ic:'📣', label:'Ouvidoria-Geral e Conselho de Usuários', sub:'Voz do usuário para melhorar a Carta', tag:D,
+  html:'<p>A Ouvidoria-Geral, o Conselho de Usuários dos Serviços Públicos, as avaliações dos serviços no EXPRESSO e as avaliações da gestão pública devem ser <b>consultados de forma sistemática</b> para retroalimentar e melhorar a Carta.</p>'}
+],
+
+gPre: [
+ {k:'mapear', label:'Mapear a jornada', tag:D, title:'Primeiro entender, depois cadastrar',
+  html:'<p>O cadastro e a atualização devem ser <b>precedidos do mapeamento da jornada do usuário e do processo de negócio</b>, com:</p><ul><li>linguagem simples;</li><li>estrutura orientada à jornada;</li><li>indicadores de desempenho.</li></ul><div class="callout gold">Se não for possível cumprir isso de imediato, o órgão precisa ter um <b>cronograma de execução validado</b> pela Superintendência Central de Transformação Pública, da SEAD.</div>'},
+ {k:'cadeia', label:'De onde vêm os serviços', tag:D, title:'A Cadeia de Valor Integrada',
+  html:'<p>Os serviços de cadastro obrigatório saem dos <b>processos de trabalho identificados na Cadeia de Valor Integrada</b> do Estado, desde que cumpram os sete critérios.</p><p>Para manter a oferta sustentável, a Carta mantém vínculo com a Cadeia de Valor por meio do <b>Mapa de Transformação de Serviços</b>, no EXPRESSO Admin.</p><div class="callout">Inclusões fora dos critérios, ou omissões de processos que se enquadram, são avaliadas pela unidade central.</div>'},
+ {k:'transf', label:'Quando o serviço muda', tag:D, title:'Transformou ou ampliou? Atualize a Carta',
+  html:'<p>Sempre que houver <b>transformação ou ampliação</b> da oferta de serviços ao cidadão, o órgão deve atualizar as informações da Carta.</p>'}
+],
+
+gCiclo: [
+ {k:'1', label:'Identificar', tag:O, title:'Surgiu um serviço novo ou uma necessidade de atualização',
+  html:'<p>O gatilho pode ser um <b>serviço ainda não cadastrado</b> ou a mudança em um serviço já publicado. Quem costuma perceber é o responsável pelo serviço ou o ponto focal.</p>'},
+ {k:'2', label:'Preencher o artefato', tag:O, title:'Ponto focal e responsável descrevem o serviço',
+  html:'<p>Juntos, o ponto focal e o responsável pelo serviço <b>reúnem as informações e preenchem o artefato</b> de descrição ou de atualização do serviço.</p><p>É nesta etapa que se aplicam o mapeamento da jornada e a linguagem simples.</p>'},
+ {k:'3', label:'Validação da GECART', tag:O, title:'A unidade central faz considerações e autoriza',
+  html:'<p>A equipe da <b>Gerência de Gestão da Carta de Serviços</b> recebe o artefato, faz ajustes e considerações e, então, autoriza o cadastro ou a atualização.</p>'},
+ {k:'4', label:'Cadastrar no Admin', tag:O, title:'Ponto focal registra no EXPRESSO Admin',
+  html:'<p>Com a autorização, o ponto focal <b>preenche o EXPRESSO Admin</b> e informa a GECART.</p><div class="callout">Depois de cadastrado ou verificado, o registro da verificação no EXPRESSO Admin é obrigatório.</div>'},
+ {k:'5', label:'Publicar', tag:O, title:'A GECART publica o serviço na Carta',
+  html:'<p>A equipe da unidade central <b>publica o serviço</b> no Portal EXPRESSO. A partir daí, valem os prazos de atualização.</p>'}
+],
+
+gFicha: [
+ {k:'1', label:'Nome do serviço', tag:O, title:'Nome do serviço',
+  html:'<p>O nome sempre é escrito do <b>ponto de vista do usuário</b>, começa com um <b>verbo no infinitivo</b> e responde à pergunta <b>“O que você precisa?”</b></p><div class="duo"><div class="yes"><small>BOM</small>Solicitar um boleto de IPVA<br>Consultar boletim escolar<br>Obter a certidão de antecedentes criminais</div><div class="no"><small>EVITE</small>Coleta deca-dactilográfica<br>Verificação de antecedentes criminais<br>Renovação da Carteira de Habilitação</div></div><ul><li>Prefira nomes curtos e evite jargões e palavras complexas;</li><li>Não use o nome de um equipamento ou programa de governo;</li><li>Se o público conhece a sigla, destaque-a com um hífen: <i>Renovar a Carteira de Habilitação - CNH</i>;</li><li>Evite palavras sexistas, pejorativas ou discriminatórias e troque estrangeirismos.</li></ul>'},
+ {k:'2', label:'Descrição', tag:D, title:'Descrição do serviço em linguagem simples',
+  html:'<p>Uma descrição simples sobre <b>o que o serviço entrega</b> ao usuário.</p><div class="callout warn"><b>Evite:</b> informações desnecessárias, textos de normas e leis, o passo a passo do processo, conceitos relacionados ao serviço e jargões.</div>'},
+ {k:'3', label:'Público-alvo', tag:D, title:'Público-alvo',
+  html:'<p>Indique quem normalmente procura o serviço. Seja específico.</p><div class="duo"><div class="no"><small>EVITE</small>Pessoa física<br>Pessoa jurídica</div><div class="yes"><small>PREFIRA</small>Estudante universitário<br>Cidadão habilitado<br>Procurador</div></div><p>Se existirem <b>condições indispensáveis</b>, informe-as: estar matriculado em faculdade, estar com a CNH vencida ou perto do vencimento, ser reconhecido por procuração.</p>'},
+ {k:'4', label:'Requisitos e documentos', tag:D, title:'Requisitos e documentos necessários',
+  html:'<p>Liste tudo o que a pessoa precisa ter ou apresentar. Quando um documento tem condição própria, diga qual é.</p><p class="ex">Exemplo: comprovante de endereço dos últimos 90 dias.</p>'},
+ {k:'5', label:'Etapas da jornada', tag:D, title:'Etapas da jornada do usuário',
+  html:'<p>Cada etapa começa com um <b>verbo no infinitivo</b> que indica a ação do usuário e descreve o que fazer para cumpri-la <b>em todos os canais</b> disponíveis.</p><p class="ex">Solicitar certidão → Aguardar emissão → Receber certidão</p><p>Liste todos os canais possíveis, por exemplo: botão <b>Acessar</b>, atendimento presencial nas unidades Vapt Vupt ou e-mail do órgão.</p>'},
+ {k:'6', label:'Prazo máximo', tag:D, title:'Previsão do prazo máximo',
+  html:'<p>Informe em quanto tempo, no máximo, o serviço será prestado. É um compromisso do órgão com o usuário.</p>'},
+ {k:'7', label:'Valor e pagamento', tag:D, title:'Valor e forma de pagamento',
+  html:'<p>Se houver cobrança, informe o <b>valor</b> e <b>como pagar</b>. Se o serviço for gratuito, deixe isso claro.</p>'},
+ {k:'8', label:'Canais e horários', tag:D, title:'Canais de acesso e horários de atendimento',
+  html:'<p>Onde e quando o usuário pode ser atendido: portal, aplicativo, balcão, telefone, e-mail. Inclua os horários de cada canal.</p>'},
+ {k:'9', label:'Base legal', tag:D, title:'Base legal e normativa',
+  html:'<p>Cite as normas que dão competência ao órgão e fundamentam o serviço. É o que garante que o serviço tem respaldo jurídico.</p><div class="callout">A base legal fica neste campo. Não a coloque na descrição do serviço.</div>'},
+ {k:'10', label:'Indicadores', tag:D, title:'Indicadores de desempenho',
+  html:'<p>No mínimo, três indicadores:</p><ul><li><b>Prazo médio</b> de atendimento;</li><li><b>Taxa de resolução</b>;</li><li><b>Avaliação do usuário</b>.</li></ul>'},
+ {k:'11', label:'Contato da área', tag:D, title:'Contato da área responsável',
+  html:'<p>Indique com quem o usuário pode falar sobre o serviço: unidade, telefone ou e-mail.</p>'},
+ {k:'12', label:'Acessibilidade', tag:D, title:'Acessibilidade e atendimento prioritário',
+  html:'<p>Registre observações sobre <b>acessibilidade</b> e sobre o <b>atendimento prioritário</b>, para que cada pessoa saiba o que esperar.</p>'},
+ {k:'13', label:'Última atualização', tag:D, title:'Data da última atualização e responsável',
+  html:'<p>Toda ficha mostra <b>quando</b> foi atualizada e <b>quem</b> a atualizou. Isso dá confiança ao usuário e permite o controle do prazo de 120 dias.</p>'}
+],
+
+gLing: [
+ {k:'1', label:'Empatia', tag:G, title:'Empatia: escreva para quem vai ler',
+  html:'<p>É a base da linguagem simples. Coloque-se no lugar de quem vai ler, provavelmente <b>pela tela de um celular</b> e talvez com alguma dificuldade de leitura. Use frases curtas, palavras comuns e organize a informação.</p><div class="duo"><div class="no"><small>ANTES</small>Atender integralmente à saúde da mulher, em todas as fases da vida, para consultas programadas e atendimentos de urgência…</div><div class="yes"><small>DEPOIS</small>Atender à saúde de mulheres de todas as idades. <br>Ambulatório: compareça a um posto de saúde. <br>Urgência: dirija-se a um pronto-atendimento.</div></div>'},
+ {k:'2', label:'Hierarquia', tag:G, title:'Hierarquia: o mais importante primeiro',
+  html:'<p>Comece pelo essencial e deixe os dados complementares para o final. Vá direto ao ponto, para que ninguém desista antes de achar o que precisa.</p><div class="duo"><div class="no"><small>ANTES</small>Um texto longo sobre as matrículas, com as datas escondidas no meio dos parágrafos.</div><div class="yes"><small>DEPOIS</small>Você pode pedir vaga pelo sistema on-line, pelo aplicativo ou pelo telefone. <br>Matrícula: 07 a 11/01, do 1º ao 9º ano; 14 a 18/01, educação infantil.</div></div>'},
+ {k:'3', label:'Palavras conhecidas', tag:G, title:'Palavras conhecidas: as que todo mundo usa',
+  html:'<p>São as palavras do dia a dia, que qualquer pessoa entende sem consultar o dicionário, não importa a escolaridade, a profissão ou a região. Evite a linguagem jurídica e burocrática sem necessidade.</p><div class="callout">Ao revisar, procure palavras técnicas, genéricas ou vagas e troque por outras mais comuns. Depois, pergunte: ficou mais fácil de entender?</div>'},
+ {k:'4', label:'Palavras concretas', tag:G, title:'Palavras concretas: nomeie coisas, pessoas e lugares',
+  html:'<p>Palavras concretas dizem de forma objetiva e direta. Evite abstrações e duplo sentido. Substitua <b>nominalizações</b> (“alteração”, “remarcação”) por verbos (“alterar”, “remarcar”).</p><div class="duo"><div class="no"><small>ANTES</small>Para fazer qualquer mudança no seu voo, consulte a empresa aérea…</div><div class="yes"><small>DEPOIS</small>Você pode mudar sua passagem. Para alterar seu voo, entre em contato com a empresa aérea.</div></div>'},
+ {k:'5', label:'Frases curtas', tag:G, title:'Frases curtas: até 25 palavras',
+  html:'<p>Frases curtas são mais fáceis de ler. Elimine o que for repetido, excessivo ou pouco importante. Um bom teste é <b>ler em voz alta</b>: se for preciso parar para respirar antes de terminar, a frase está longa.</p>'},
+ {k:'6', label:'Ordem direta', tag:G, title:'Ordem direta: sujeito + verbo + complemento',
+  html:'<p>Diga primeiro quem faz, depois o que faz e, por último, os detalhes. A leitura fica mais próxima da fala e a memória guarda melhor o que vem primeiro.</p><div class="duo"><div class="no"><small>ANTES</small>Todo o material deverá estar até 15 metros do portão, para dentro do local…</div><div class="yes"><small>DEPOIS</small>O material a ser coletado deve estar dentro do imóvel, a até 15 metros do portão.</div></div>'},
+ {k:'7', label:'Diagnóstico', tag:G, title:'Diagnóstico: revise com o olhar do usuário',
+  html:'<p>Com o texto pronto, faça uma <b>revisão empática</b>, do ponto de vista de quem vai ler, para conferir se todas as diretrizes foram observadas. Observe também o <b>tom</b>: prefira a voz ativa e use o mesmo termo do título do serviço (por exemplo, “cadastro”, não “requerimento”).</p>'}
+],
+
+gAD: [
+ {k:'sine', label:'Palavras conhecidas', tag:G, title:'Exemplo: descrição de um serviço do Sine',
+  html:'<div class="duo"><div class="no"><small>ANTES</small>Conforme as diretrizes do Ministério da Economia, são os locais de atendimento presencial dos trabalhadores que procuram os serviços de intermediação de mão de obra, habilitação ao seguro-desemprego, encaminhamento para qualificação profissional, emissão de carteira de trabalho, entre outras atividades executadas pelos postos.</div><div class="yes"><small>DEPOIS</small>O Sistema Nacional de Emprego (Sine) é o local de atendimento dos trabalhadores. No Sine é possível solicitar a carteira de trabalho, consultar vagas de emprego, dar entrada no seguro-desemprego ou fazer cursos de qualificação profissional.</div></div>'},
+ {k:'cnd', label:'Frases curtas', tag:G, title:'Exemplo: certidão de regularidade fiscal',
+  html:'<div class="duo"><div class="no"><small>ANTES</small>A prova de regularidade fiscal perante a Fazenda Nacional para quaisquer fins é efetuada mediante apresentação de certidão expedida conjuntamente pela Secretaria Especial da Receita Federal do Brasil e pela Procuradoria-Geral da Fazenda Nacional, referente a todos os créditos tributários federais e à dívida ativa da União por elas administrados.</div><div class="yes"><small>DEPOIS</small>A certidão de regularidade fiscal (CND) é o documento que comprova a quitação de dívidas com a Fazenda Nacional. A certidão abrange impostos, taxas, multas e outras cobranças. Ela é de responsabilidade da Receita Federal e da Procuradoria-Geral da Fazenda Nacional.</div></div>'},
+ {k:'visita', label:'Diagnóstico', tag:G, title:'Exemplo: visita a pessoa privada de liberdade',
+  html:'<div class="duo"><div class="no"><small>ANTES</small>A visita assistida poderá ser feita por familiares, desde que seja comprovada a impossibilidade do visitante em fazer a visita social. O requerimento é feito pelo solicitante nos Núcleos de Assistência à Família ou nas unidades prisionais.</div><div class="yes"><small>DEPOIS</small>Se a visita não for possível aos domingos, os familiares podem solicitar a visita assistida (de segunda a sábado). O pedido é feito no Núcleo de Assistência à Família. Onde não há o núcleo, o pedido é feito nas unidades prisionais. O motivo deve ser comprovado.</div></div>'}
+],
+
+gPrazos: [
+ {k:'p5', label:'Mudou? 5 dias úteis', tag:D, title:'Alterações chegam à Carta em até cinco dias úteis',
+  html:'<p>Toda alteração que possa <b>impactar a realização do serviço pelo usuário</b> precisa aparecer na Carta em até <b>cinco dias úteis</b> da data da alteração. Isso inclui mudanças em disponibilidade, requisitos, documentos, prazos, procedimentos e canais.</p><p>O <b>ponto focal setorial</b> deve registrar a ocorrência e a medida corretiva.</p>'},
+ {k:'p120', label:'Verificar a cada 120 dias', tag:D, title:'Nenhum serviço fica mais de 120 dias sem verificação',
+  html:'<p>Mesmo sem mudança, todo serviço deve ser <b>verificado ao menos a cada 120 dias</b> para saber se precisa de atualização. A verificação deve ser <b>registrada no EXPRESSO Admin</b>.</p>'},
+ {k:'pcentral', label:'Quem pode atualizar', tag:D, title:'A unidade central pode agir a qualquer tempo',
+  html:'<p>A unidade central pode, a qualquer momento, <b>solicitar ou realizar diretamente</b> a atualização da Carta.</p><div class="callout gold">Os órgãos respondem pela atualização do conteúdo, pela comunicação à unidade central e também pela <b>prestação exata do serviço</b> como foi descrito.</div>'},
+ {k:'pind', label:'Serviço fora do ar', tag:D, title:'Indisponibilidade ou mau funcionamento',
+  html:'<p>Ao constatar que um serviço está indisponível ou funcionando mal, a unidade central <b>comunica imediatamente</b> o ponto focal responsável, que deve tomar as providências.</p><p>Se não houver solução, pode ser determinada a <b>suspensão temporária</b> do serviço até a regularização, para proteger os usuários.</p>'},
+ {k:'pret', label:'Ouvir o usuário', tag:D, title:'A Carta melhora com o retorno de quem usa',
+  html:'<p>A Ouvidoria-Geral, o Conselho de Usuários, as avaliações dos serviços no EXPRESSO e as avaliações da gestão pública devem ser consultados <b>de forma sistemática</b> para melhorar a Carta.</p>'},
+ {k:'paud', label:'Auditoria', tag:D, title:'Atestação e auditoria da qualidade',
+  html:'<p>A unidade central pode aplicar uma metodologia de <b>atestação e auditoria</b>, com rodada mínima <b>anual</b> para todos os órgãos. Quando necessário, há exceções e fiscalizações extraordinárias.</p>'},
+ {k:'prank', label:'Ranking', tag:D, title:'Ranking semestral dos órgãos',
+  html:'<p>A SEAD divulga o <b>resultado da avaliação e o ranking</b> dos órgãos e entidades, quanto ao cumprimento do decreto e à efetividade da Carta, com periodicidade mínima <b>semestral</b>, para dar transparência e estimular a melhoria contínua.</p>'}
+],
+
+gFerr: [
+ {k:'portal', label:'Portal EXPRESSO', tag:D, title:'Portal EXPRESSO',
+  html:'<p>O portal único de serviços do Estado de Goiás, em <b>www.expresso.go.gov.br</b>. É onde o cidadão consulta a Carta e, quando o serviço é digital, usa o botão <b>Acessar</b>.</p>'},
+ {k:'admin', label:'EXPRESSO Admin', tag:D, title:'EXPRESSO Admin',
+  html:'<p>Plataforma de gestão usada por servidores para <b>administrar conteúdos, acessos e integrações</b> do Portal EXPRESSO. É nela que o ponto focal cadastra serviços e registra as verificações.</p>'},
+ {k:'mapa', label:'Mapa de Transformação', tag:D, title:'Mapa de Transformação de Serviços',
+  html:'<p>Ferramenta do EXPRESSO Admin, integradora e estratégica. Ela <b>associa os processos de trabalho aos serviços</b> prestados e às suas categorias, etapas, documentos gerados, graus de complexidade e potenciais de transformação digital.</p><p>É por ela que a Carta mantém o vínculo com a Cadeia de Valor Integrada.</p>'},
+ {k:'cadeia', label:'Cadeia de Valor', tag:D, title:'Cadeia de Valor Integrada do Estado',
+  html:'<p>É o conjunto de processos de trabalho do Estado. Os serviços de cadastro obrigatório são identificados nela, e a Carta deve permanecer conectada a ela.</p>'},
+ {k:'vv', label:'Vapt Vupt', tag:D, title:'Atendimento presencial',
+  html:'<p>As informações da Carta devem estar integradas às <b>instruções normativas internas</b> que orientam os atendentes presenciais do Vapt Vupt e do EXPRESSO. Assim, quem atende e quem consulta o portal recebem a mesma informação.</p>'},
+ {k:'divulg', label:'Divulgação', tag:D, title:'Todo órgão divulga o Portal',
+  html:'<p>Os órgãos e entidades devem divulgar o Portal EXPRESSO <b>com prioridade</b> em seus sites, redes sociais e outros canais, para ampliar o acesso à Carta e facilitar o conhecimento dos direitos e dos serviços.</p>'}
+],
+
+gTipoDig: [
+ {k:'pres', label:'Presencial', tag:O, title:'Serviço presencial',
+  html:'<p>É presencial quando <b>todas as etapas</b> são feitas somente de forma presencial.</p><p class="ex">Exemplo (Certificado de Propriedade Rural): solicitar a visita na unidade, receber o técnico na propriedade e retirar o certificado na unidade.</p>'},
+ {k:'parc', label:'Parcialmente digital', tag:O, title:'Serviço parcialmente digital',
+  html:'<p>É parcialmente digital quando <b>ao menos uma etapa</b> pode ser feita pelo botão Acessar e <b>ao menos uma etapa</b> acontece fora do EXPRESSO (presencial, e-mail, WhatsApp e outros).</p><p class="ex">Exemplo: pedir a visita pelo botão Acessar, receber o técnico na propriedade e receber o certificado por e-mail.</p>'},
+ {k:'dig', label:'Digital', tag:O, title:'Serviço digital',
+  html:'<p>É digital quando <b>todas as etapas</b> podem ser feitas em meio digital, pelo botão Acessar.</p><p class="ex">Exemplo: solicitar o parecer pelo botão Acessar, aguardar a revisão técnica feita pelo servidor e receber o certificado digital pelo mesmo botão.</p>'}
+],
+
+gGlos: [
+ {k:'g1', label:'Carta de Serviços', tag:D, title:'Carta de Serviços ao Usuário do Estado de Goiás', html:'<p>Instrumento público que reúne, em linguagem simples e acessível, as informações para o usuário localizar, compreender e utilizar um serviço público.</p>'},
+ {k:'g2', label:'Usuário', tag:D, title:'Usuário', html:'<p>Pessoa física ou jurídica que se beneficia ou utiliza, efetiva ou potencialmente, de serviço público.</p>'},
+ {k:'g3', label:'Usuário interno', tag:D, title:'Usuário interno', html:'<p>Pessoa física ou jurídica com vínculo formal com o órgão, que utiliza ou interage com os serviços públicos.</p>'},
+ {k:'g4', label:'Usuário externo', tag:D, title:'Usuário externo', html:'<p>Pessoa física ou jurídica sem vínculo formal ou direto com o órgão, mas que utiliza ou interage com seus serviços.</p>'},
+ {k:'g5', label:'Portal EXPRESSO', tag:D, title:'Portal EXPRESSO', html:'<p>Portal único de serviços do Estado de Goiás, em www.expresso.go.gov.br, onde está a Carta.</p>'},
+ {k:'g6', label:'EXPRESSO Admin', tag:D, title:'EXPRESSO Admin', html:'<p>Plataforma de gestão dos serviços, usada por servidores para administrar conteúdos, acessos e integrações do Portal.</p>'},
+ {k:'g7', label:'Mapa de Transformação de Serviços', tag:D, title:'Mapa de Transformação de Serviços', html:'<p>Ferramenta do EXPRESSO Admin que associa processos de negócio e de trabalho aos serviços prestados, com categorias, etapas, documentos gerados, complexidade e potencial de transformação digital.</p>'},
+ {k:'g8', label:'Unidade central', tag:D, title:'Unidade central de gestão da Carta', html:'<p>Unidade administrativa central que padroniza e implementa os procedimentos, orienta os órgãos, promove a cultura do tema e monitora resultados. É a Gerência de Gestão da Carta de Serviços, da SEAD.</p>'},
+ {k:'g9', label:'Unidade setorial', tag:D, title:'Unidade setorial de gestão da Carta', html:'<p>Unidade do órgão que atende às orientações e solicitações da unidade central e gere a Carta no âmbito setorial.</p>'},
+ {k:'g10', label:'Ponto focal setorial', tag:D, title:'Ponto focal setorial', html:'<p>Servidor designado pelo órgão, lotado na unidade setorial, responsável por coordenar a gestão da Carta.</p>'},
+ {k:'g11', label:'Responsável pelo serviço', tag:D, title:'Responsável pelo serviço', html:'<p>Servidor designado pela unidade que detém a responsabilidade técnica e normativa pelo serviço.</p>'},
+ {k:'g12', label:'Serviço público', tag:D, title:'Serviço público', html:'<p>Atividade administrativa ou de interesse coletivo exercida sob regime de direito público, pelo Estado ou por seus delegatários, para atender de forma contínua, regular e eficiente às necessidades essenciais da população.</p>'},
+ {k:'g13', label:'Serviço de atendimento', tag:D, title:'Serviço público de atendimento', html:'<p>Serviço prestado de forma individualizada, que começa com uma interação presencial, digital ou automatizada do usuário e termina com a entrega do resultado final.</p>'},
+ {k:'g14', label:'Base legal', tag:D, title:'Base legal', html:'<p>Garante que o serviço tenha fundamento jurídico e esteja sob a competência do órgão responsável, evitando ofertas indevidas ou sem respaldo normativo.</p>'},
+ {k:'g15', label:'Interação', tag:D, title:'Interação', html:'<p>Contato entre o órgão e o cidadão, caracterizado por uma solicitação ou demanda específica que exige resposta, análise ou providência.</p>'},
+ {k:'g16', label:'Processo padronizado', tag:D, title:'Processo padronizado', html:'<p>Sequência estruturada de atividades, regras e responsabilidades que disciplinam a execução de um serviço, garantindo transparência e continuidade.</p>'},
+ {k:'g17', label:'Integralidade', tag:D, title:'Integralidade ou suficiência', html:'<p>Característica do serviço cuja execução resulta em uma entrega final e completa ao cidadão, sem depender de outro serviço.</p>'},
+ {k:'g18', label:'Personalização', tag:D, title:'Personalização', html:'<p>Característica do serviço que resulta em uma entrega ou resposta individualizada, em decorrência de solicitação específica.</p>'}
+]
+};
+
+/* ============ COMPONENTE DE MENU ============ */
+var visited = {};     // grupo -> {k:true}
+var activeKey = {};   // grupo -> k
+var NAVS = [];
+
+function esc(s){return s;}
+function tagHtml(t){return '<span class="tag '+t+'">'+TAGNAME[t]+'</span>';}
+
+function buildMenu(gid){
+  var items = DATA[gid]; if(!items) return;
+  var row = document.querySelector('[data-menu="'+gid+'"]');
+  var panel = document.querySelector('[data-panel="'+gid+'"]');
+  if(!row || !panel) return;
+  visited[gid] = {};
+  items.forEach(function(it){
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'mb'; b.dataset.k = it.k;
+    b.setAttribute('aria-expanded','false');
+    var lead = it.n ? '<span class="k">'+it.n+'</span>' : (row.classList.contains('stepper') ? '<span class="k">'+it.k+'</span>' : '');
+    b.innerHTML = lead + '<span>'+it.label+'</span>';
+    b.addEventListener('click', function(){ toggle(gid, it.k); });
+    row.appendChild(b);
+  });
+  updateCount(gid);
+}
+
+function toggle(gid, k){
+  if(activeKey[gid] === k){ close(gid); return; }
+  open(gid, k);
+}
+function close(gid){
+  var row = document.querySelector('[data-menu="'+gid+'"]');
+  var panel = document.querySelector('[data-panel="'+gid+'"]');
+  panel.hidden = true; activeKey[gid] = null;
+  Array.prototype.forEach.call(row.children, function(b){ b.classList.remove('on'); b.setAttribute('aria-expanded','false'); });
+}
+function open(gid, k){
+  var it = DATA[gid].filter(function(x){return x.k===k;})[0]; if(!it) return;
+  var row = document.querySelector('[data-menu="'+gid+'"]');
+  var panel = document.querySelector('[data-panel="'+gid+'"]');
+  Array.prototype.forEach.call(row.children, function(b){
+    var on = b.dataset.k === k;
+    b.classList.toggle('on', on); b.setAttribute('aria-expanded', on ? 'true':'false');
+    if(on) b.classList.add('seen');
+  });
+  panel.hidden = false;
+  panel.style.animation = 'none'; void panel.offsetWidth; panel.style.animation = '';
+  panel.innerHTML = tagHtml(it.tag) + '<h3>'+it.title+'</h3>' + it.html;
+  activeKey[gid] = k; visited[gid][k] = true;
+  updateCount(gid); updateProgress();
+}
+function updateCount(gid){
+  var el = document.querySelector('[data-cnt="'+gid+'"]'); if(!el) return;
+  var n = Object.keys(visited[gid]||{}).length, t = DATA[gid].length;
+  el.textContent = n + ' de ' + t + ' explorados';
+}
+
+/* ============ ACORDEÃO ============ */
+function buildAcc(){
+  var host = document.getElementById('accAtores'), items = DATA.gAtores;
+  visited.gAtores = {};
+  items.forEach(function(it, i){
+    var w = document.createElement('div'); w.className = 'acc-i';
+    var b = document.createElement('button'); b.type='button'; b.className='acc-b';
+    b.setAttribute('aria-expanded','false');
+    b.innerHTML = '<span class="ic" aria-hidden="true">'+it.ic+'</span><span>'+it.label+'<small>'+it.sub+'</small></span><span class="chev" aria-hidden="true">▶</span>';
+    var p = document.createElement('div'); p.className='acc-p'; p.hidden = true;
+    p.innerHTML = tagHtml(it.tag) + it.html;
+    b.addEventListener('click', function(){
+      var was = w.classList.contains('on');
+      Array.prototype.forEach.call(host.children, function(x){
+        x.classList.remove('on'); x.querySelector('.acc-b').setAttribute('aria-expanded','false'); x.querySelector('.acc-p').hidden = true;
+      });
+      if(!was){ w.classList.add('on'); b.setAttribute('aria-expanded','true'); p.hidden=false; visited.gAtores[i]=true; updateCount('gAtores'); updateProgress(); }
+    });
+    w.appendChild(b); w.appendChild(p); host.appendChild(w);
+  });
+  updateCount('gAtores');
+}
+
+/* ============ TESTE DOS CRITÉRIOS ============ */
+var CRIT = [
+ 'Tem um usuário ou destinatário: externo, ou interno (servidor, unidade ou outro órgão).',
+ 'Gera algo de interesse direto do usuário: entrega, autorização, documento, benefício, informação, atendimento ou resultado.',
+ 'Existe fundamento legal que comprova a competência do órgão.',
+ 'Envolve interação com o cidadão, por solicitação, atendimento ou entrega de resultado.',
+ 'É um processo padronizado, com etapas, prazos, documentos e canais definidos e replicáveis.',
+ 'Termina em uma entrega final e completa, sem depender de outro serviço.',
+ 'O resultado é individualizado, em resposta à solicitação do usuário.'
+];
+function buildCheck(){
+  var host = document.getElementById('chk'), bar = document.getElementById('chkBar'), out = document.getElementById('chkOut');
+  CRIT.forEach(function(t, i){
+    var l = document.createElement('label');
+    l.innerHTML = '<input type="checkbox"><span>'+t+'</span>';
+    l.firstChild.addEventListener('change', function(){ l.classList.toggle('on', this.checked); calc(); });
+    host.appendChild(l);
+  });
+  function calc(){
+    var boxes = host.querySelectorAll('input'), n = 0, miss = [];
+    boxes.forEach(function(b,i){ if(b.checked) n++; else miss.push(i+1); });
+    bar.style.width = (n/7*100)+'%';
+    if(n===7){ out.className='verdict ok'; out.innerHTML='Cadastro obrigatório na Carta.<small>Todos os sete critérios estão presentes. Registre o serviço no EXPRESSO Admin com a ficha completa.</small>'; bar.style.background='#8FC095'; }
+    else if(n===0){ out.className='verdict'; out.textContent='Marque os critérios para ver o resultado.'; bar.style.background=''; }
+    else { out.className='verdict mid'; out.innerHTML='Ainda não é cadastro obrigatório ('+n+' de 7).<small>Faltam os critérios '+miss.join(', ')+'. Em caso de dúvida, a unidade central de gestão da Carta avalia se o processo deve ou não ser incluído.</small>'; bar.style.background=''; }
+  }
+}
+
+/* ============ CALCULADORAS ============ */
+function fmt(d){return d.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long',year:'numeric'});}
+function parse(v){var p=v.split('-');return new Date(+p[0],+p[1]-1,+p[2]);}
+function setupCalc(){
+  var m = document.getElementById('dMud'), om = document.getElementById('oMud');
+  var v = document.getElementById('dVer'), ov = document.getElementById('oVer');
+  m.addEventListener('input', function(){
+    if(!m.value){om.textContent='Escolha uma data';return;}
+    var d = parse(m.value), n = 0;
+    while(n<5){ d.setDate(d.getDate()+1); var w=d.getDay(); if(w!==0 && w!==6) n++; }
+    om.textContent = 'Até ' + fmt(d);
+  });
+  v.addEventListener('input', function(){
+    if(!v.value){ov.textContent='Escolha uma data';return;}
+    var d = parse(v.value); d.setDate(d.getDate()+120);
+    ov.textContent = 'Até ' + fmt(d);
+  });
+}
+
+/* ============ SIDEBAR, SCROLLSPY, PROGRESSO ============ */
+var seenSec = {};
+function buildNav(){
+  var nav = document.getElementById('nav');
+  document.querySelectorAll('main section, main header, main footer').forEach(function(s){
+    if(!s.id) return;
+    var a = document.createElement('a'); a.href = '#'+s.id; a.dataset.id = s.id;
+    a.innerHTML = '<span class="n">'+s.dataset.n+'</span><span>'+s.dataset.label+'</span>';
+    a.addEventListener('click', function(){ document.getElementById('side').classList.remove('open'); });
+    nav.appendChild(a); NAVS.push({el:a, sec:s});
+  });
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){
+        NAVS.forEach(function(n){ n.el.classList.toggle('active', n.sec===e.target); });
+        seenSec[e.target.id] = true;
+        NAVS.filter(function(n){return n.sec===e.target;})[0].el.classList.add('seen');
+        updateProgress();
+      }
+    });
+  }, {rootMargin:'-40% 0px -55% 0px'});
+  NAVS.forEach(function(n){ io.observe(n.sec); });
+}
+function updateProgress(){
+  var total = 0, done = 0;
+  Object.keys(DATA).forEach(function(g){ total += DATA[g].length; done += Object.keys(visited[g]||{}).length; });
+  var secPart = Object.keys(seenSec).length / NAVS.length;
+  var pct = Math.round((secPart*0.4 + (done/total)*0.6)*100);
+  document.getElementById('progFill').style.width = pct+'%';
+  document.getElementById('progTxt').textContent = pct+'%';
+}
+
+/* ============ CONTADORES DO INÍCIO ============ */
+function counters(){
+  document.querySelectorAll('[data-to]').forEach(function(el){
+    var to = +el.dataset.to, t0 = null;
+    function step(t){ if(!t0) t0=t; var p=Math.min((t-t0)/900,1); el.textContent=Math.round(to*(1-Math.pow(1-p,3))); if(p<1) requestAnimationFrame(step); }
+    requestAnimationFrame(step);
+  });
+}
+
+/* ============ INICIAR ============ */
+['gConceito','gCriterios','gTipos','gPre','gCiclo','gFicha','gLing','gAD','gPrazos','gFerr','gTipoDig','gGlos'].forEach(buildMenu);
+// aliases: o ciclo e o grupo "gPrazos" usam chaves distintas no DATA
+buildAcc(); buildCheck(); setupCalc(); buildNav(); counters(); updateProgress();
+document.getElementById('burger').addEventListener('click', function(){ document.getElementById('side').classList.toggle('open'); });
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') document.getElementById('side').classList.remove('open'); });
+window.addEventListener('scroll', function(){ updateProgress(); }, {passive:true});
+})();
+</script>
+</body>
+</html>
